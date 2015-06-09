@@ -94,14 +94,19 @@ RulesApplicator::RulesApplicator(Parser &parser) :
 	ruleStore(RulesStore(parser)), statementStore(parser.getInitStatements()) {}
 
 Node* RulesApplicator::ApplyRule(Rule *rule, const TNodes &formulas){
-	if(rule->argsCount() != formulas.size())
-		return 0;
-	TNodes &rules = rule->getStatements();
-	for(int i = 0; i < formulas.size(); i++){
-		Node *r = rules[i], *f = formulas[i];
-		if(*r != f)
-			return 0;
-	}
+	//if(rule->argsCount() != formulas.size())
+	//	return 0;
+	//TNodes &rules = rule->getStatements();
+	//for(int i = 0; i < formulas.size(); i++){
+	//	if(*rules[i] != formulas[i]){
+	//		rule->clearLinks();
+	//		return 0;
+	//	}
+	//}
 
+	//auto vars = rule->getRelatedNodes();
+	//Node *new_formula = rule->getConclusion()->Clone();
 
+	//// Not complete!!!
+	return 0;
 }

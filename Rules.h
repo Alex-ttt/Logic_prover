@@ -12,6 +12,8 @@ public:
 	int size() const;
 	int argsCount() const;
 	RuleType getRuleType() const;
+	vector<VarNode*> getRelatedNodes();
+	void clearLinks();
 	void print() const;
 };
 

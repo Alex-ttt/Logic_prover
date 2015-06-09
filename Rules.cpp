@@ -27,6 +27,21 @@ RuleType Rule::getRuleType() const {
 	return type;
 }
 
+vector<VarNode*> Rule::getRelatedNodes(){
+	vector<VarNode*> ret;
+	for(int i = 0; i < args.size() - 1; i++){
+		args[i]->getRelatedNodes(ret);
+	}
+
+	return ret;
+}
+
+void Rule::clearLinks(){
+	for(int i = 0; i < args.size() - 1; i++){
+		args[i]->clearLinks();
+	}
+}
+
 void Rule::print() const {
 	for(auto a : args){
 		if(a->isConclusion())

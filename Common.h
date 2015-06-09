@@ -31,5 +31,6 @@ enum func {
 	combine,		// Maybe unnecessary
 	comma,			// (X, Y)
 	inv,			// (K1, K2) - K1 and K2 are a public/private pair
-	distinct		// (P, Q) - this is principals
+	distinct,		// (P, Q) - this is principals
+	empty
 };

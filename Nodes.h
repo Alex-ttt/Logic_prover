@@ -10,6 +10,7 @@ protected:
 
 public:
 	Node(func f = variable) : function(f), conclusion(false), conclType(S_RULE){}
+	virtual Node* Clone() const { return 0; };
 	virtual int argsCount() const {	return 0; };
 	virtual void print(int deep = 0) const {}
 	void setConclusion(bool b) { conclusion = b; }
@@ -17,14 +18,26 @@ public:
 	func getFuncType() const { return function; }
 	void setConlusionType(RuleType type) { conclType = type; }
 	RuleType getConclusionType() const { return conclType; }
-	virtual bool operator == (Node *c) const { return true; }
-	bool operator != (Node *c) const { return !(*this == c); }
+	virtual bool operator == (Node *c){ return true; }
+	bool operator != (Node *c){ return !(*this == c); }
+	virtual void clearLinks() {}
+	virtual void getRelatedNodes(vector<VarNode*> &nodes) {};
+	virtual void replaceArgsTo(vector<VarNode*> &nodes) {};
 };
 
 class VarNode : public Node {
+private:
+	const string name;
+	Node *relatedNode;
+
 public:
 	VarNode(const string &str);
-	const string name;
+	string getName() const;
+	Node* Clone() const;
+	void getRelatedNodes(vector<VarNode*> &nodes);
+	Node* getRelatedNode() const;
+	void clearLinks();
+	bool operator == (Node *c);
 	void print(int deep = 0) const;
 };
 
@@ -34,9 +47,13 @@ private:
 
 public:
 	SimpleNode(Node *arg, func f = fresh);
+	Node* Clone() const;
+	void getRelatedNodes(vector<VarNode*> &nodes);
 	Node* getFirstArg() const;
 	int argsCount() const;
-	bool operator == (Node *c) const;
+	bool operator == (Node *c);
+	void clearLinks();
+	void replaceArgsTo(vector<VarNode*> &nodes);
 	void print(int deep = 0) const;
 };
 
@@ -47,11 +64,15 @@ private:
 
 public:
 	DoubleNode(Node *a1, Node *a2, func f = variable);
+	Node* Clone() const;
+	void getRelatedNodes(vector<VarNode*> &nodes);
 	Node* getFirstArg() const;
 	Node* getSecondArg() const;
 	int argsCount() const;
 	void print(int deep = 0) const;
-	bool operator == (Node *c) const;
+	void clearLinks();
+	bool operator == (Node *c);
+	void replaceArgsTo(vector<VarNode*> &nodes);
 };
 
 class TripleNode : public Node{
@@ -62,10 +83,14 @@ private:
 
 public:
 	TripleNode(Node *a1, Node *a2, Node *a3, func f = variable);
+	Node* Clone() const;
+	void getRelatedNodes(vector<VarNode*> &nodes);
 	int argsCount() const;
 	Node* getFirstArg() const;
 	Node* getSecondArg() const;
 	Node* getThirdArg() const;
-	bool operator == (Node *c) const;
+	bool operator == (Node *c);
+	void clearLinks();
+	void replaceArgsTo(vector<VarNode*> &nodes);
 	void print(int deep = 0) const;
 };

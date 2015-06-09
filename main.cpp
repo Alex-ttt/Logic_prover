@@ -6,12 +6,12 @@
 using namespace std;
 
 int main(){
-	Parser p("rules.txt", "input.txt");
+	Parser p("Basic_BAN_rules.txt", "input.txt");
 	//RulesStore store(p);
 	p.Parse();
 	auto Nodes = p.getInitStatements();
 	try{
-
+		cout << (*Nodes[0] == Nodes[1]) << endl;
 	} catch(BAN_Exception &exc){
 		cout << exc.getMessage() << endl;
 	}
